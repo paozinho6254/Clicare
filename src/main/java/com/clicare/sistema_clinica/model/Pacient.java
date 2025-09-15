@@ -25,7 +25,5 @@ public class Pacient extends User{
     @Column(nullable = false)
     private String sexo;
 
-    @Column(nullable = false)
-    ;
 
 }
