@@ -1,5 +1,6 @@
 package com.clicare.sistema_clinica.model;
 
+import com.clicare.sistema_clinica.enumeration.TypeUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +14,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Column
+    private String name;
 
     @Column(nullable = false)
-    private String nome;
+    private String email;
 
+    @Column(nullable = false)
+    private String password;
 
+    @Column(nullable = false)
+    private TypeUser typeUser;
+
+    @Column(nullable = false)
+    private Boolean active;
 }
