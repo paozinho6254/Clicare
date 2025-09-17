@@ -1,10 +1,10 @@
 package com.clicare.sistema_clinica.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
+import java.util.Set;
 
 
 @Entity
@@ -43,5 +43,12 @@ public class Pacient extends User{
     @Column(nullable = false)
     private String sexo;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_endereco")
+    private Endereco endereco;
 
+    // Um paciente titular pode ter vários dependentes
+    @OneToMany(mappedBy = "pacienteTitular", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Dependente> dependentes;
 }
+

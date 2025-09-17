@@ -1,8 +1,8 @@
 package com.clicare.sistema_clinica.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
