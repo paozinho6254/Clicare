@@ -1,7 +1,6 @@
 package com.clicare.sistema_clinica.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,9 +10,28 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@Table(name = "paciente")
 public class Pacient extends User{
 
-    @Column(nullable = false)
+    @Id
+    @Column(name = "id_paciente")
+    private Integer id;
+
+    // Lazy carrega os dados de forma preguiçosa (lazy), ou seja ele não vai baixar e carregar
+    // tudo de uma vez só, na verdade ele só devolve o básico
+    @OneToOne(fetch = FetchType.LAZY)
+    //MapsId indica para não gerar um novo id, mas sim, copiar o id da entidade abaixo
+    @MapsId
+    // sendo esta a coluna no banco que liga as duas tabelas
+    /* No mySql
+
+    id_paciente INT PRIMARY KEY
+    FOREIGN KEY (id_paciente) REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
+     */
+    @JoinColumn(name = "id_paciente")
+    private User user;
+
+    @Column(name = "cpf")
     private String cpf;
 
     @Column(nullable = false)

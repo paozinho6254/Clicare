@@ -1,6 +1,5 @@
 package com.clicare.sistema_clinica.model;
 
-import com.clicare.sistema_clinica.enumeration.TypeUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,4 +27,10 @@ public class User {
 
     @Column(nullable = false)
     private Boolean active;
+
+    // Para Enuns colocar nas classes base
+    public enum TypeUser {
+        PACIENTE, MEDICO, CLINICA, ADMIN
+    }
+
 }
