@@ -6,6 +6,9 @@ import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class User {
@@ -19,6 +22,9 @@ public class User {
     @Column(nullable = false)
     private String email;
 
+    @Column(name = "senha_hash", nullable = false)
+    private String senhaHash;
+
     @Column(nullable = false)
     private String password;
 
@@ -26,7 +32,7 @@ public class User {
     private TypeUser typeUser;
 
     @Column(nullable = false)
-    private Boolean active;
+    private Boolean ativo;
 
     // Para Enuns colocar nas classes base
     public enum TypeUser {

@@ -8,6 +8,9 @@ import java.util.Set;
 
 
 @Entity
+@NoArgsConstructor // <-- GERA O CONSTRUTOR OBRIGATÓRIO PARA O JPA
+@AllArgsConstructor // <-- GERA UM CONSTRUTOR ÚTIL COM TODOS OS ARGUMENTOS
+@Builder
 @Getter
 @Setter
 @Table(name = "paciente")
@@ -15,7 +18,7 @@ public class Pacient extends User{
 
     @Id
     @Column(name = "id_paciente")
-    private Integer id;
+    private Long id;
 
     // Lazy carrega os dados de forma preguiçosa (lazy), ou seja ele não vai baixar e carregar
     // tudo de uma vez só, na verdade ele só devolve o básico

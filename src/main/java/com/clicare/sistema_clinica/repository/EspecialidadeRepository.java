@@ -15,6 +15,6 @@ public interface EspecialidadeRepository extends JpaRepository<Especialidade, In
      *
      * @param nome O nome da especialidade.
      * @return um Optional contendo a Especialidade, se encontrada.
-     */ 
+     */
     Optional<Especialidade> findByNomeIgnoreCase(String nome);
 }
