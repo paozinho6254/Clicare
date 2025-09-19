@@ -20,9 +20,9 @@ public class PacienteResponseDTO {
         dto.setCpf(pacient.getCpf());
         dto.setDataNascimento(pacient.getDataNascimento());
         // Busca os dados do usuário associado
-        if (pacient.getUser() != null) {
-            dto.setNome(pacient.getUser().getName());
-            dto.setEmail(pacient.getUser().getEmail());
+        if (pacient.getUsuario() != null) {
+            dto.setNome(pacient.getUsuario().getNome());
+            dto.setEmail(pacient.getUsuario().getEmail());
         }
         return dto;
     }

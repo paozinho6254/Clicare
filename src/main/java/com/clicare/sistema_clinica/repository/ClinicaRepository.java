@@ -25,5 +25,6 @@ public interface ClinicaRepository extends JpaRepository<Clinica, Integer> {
      * @param nome O texto a ser pesquisado no nome da clínica.
      * @return Uma lista de clínicas que correspondem ao critério de busca.
      */
-    List<Clinica> findByUsuarioNomeExibicaoContainingIgnoreCase(String nome);
+
+
 }

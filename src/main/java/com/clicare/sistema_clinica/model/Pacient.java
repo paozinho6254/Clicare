@@ -14,36 +14,28 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "paciente")
-public class Pacient extends User{
+public class Pacient {
 
     @Id
     @Column(name = "id_paciente")
     private Long id;
 
-    // Lazy carrega os dados de forma preguiçosa (lazy), ou seja ele não vai baixar e carregar
-    // tudo de uma vez só, na verdade ele só devolve o básico
     @OneToOne(fetch = FetchType.LAZY)
-    //MapsId indica para não gerar um novo id, mas sim, copiar o id da entidade abaixo
-    @MapsId
-    // sendo esta a coluna no banco que liga as duas tabelas
-    /* No mySql
+    @MapsId // Diz que o ID desta entidade vem da relação abaixo
+    @JoinColumn(name = "id_paciente") // Define o nome da coluna que faz a ligação
+    private Usuario usuario;
 
-    id_paciente INT PRIMARY KEY
-    FOREIGN KEY (id_paciente) REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
-     */
-    @JoinColumn(name = "id_paciente")
-    private User user;
 
-    @Column(name = "cpf")
+    @Column(name = "cpf_paciente")
     private String cpf;
 
-    @Column(nullable = false)
+    @Column(name = "telefone_paciente")
     private String telefone;
 
-    @Column(nullable = false)
+    @Column(name = "data_nascimento_paciente")
     private Date dataNascimento;
 
-    @Column(nullable = false)
+    @Column(name = "sexo_paciente")
     private String sexo;
 
     @ManyToOne(fetch = FetchType.LAZY)

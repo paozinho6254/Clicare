@@ -3,35 +3,35 @@ package com.clicare.sistema_clinica.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import org.antlr.v4.runtime.misc.NotNull;
-
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class User {
+@Table(name = "usuarios")
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
     private Long id;
 
-    @Column
-    private String name;
+    @Column(name = "nome_usuario")
+    private String nome;
 
-    @Column(nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "senha_hash", nullable = false)
+    @Column(name = "senha_hash")
     private String senhaHash;
 
-    @Column(nullable = false)
-    private String password;
+    @Column(name = "senha")
+    private String senha;
 
-    @Column(nullable = false)
+    @Column(name = "tipo_usuario")
     private TypeUser typeUser;
 
-    @Column(nullable = false)
+    @Column(name = "ativo")
     private Boolean ativo;
 
     // Para Enuns colocar nas classes base

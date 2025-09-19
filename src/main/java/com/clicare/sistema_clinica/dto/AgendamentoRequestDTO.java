@@ -1,5 +1,4 @@
 package com.clicare.sistema_clinica.dto;
-
 import com.clicare.sistema_clinica.model.Agendamento;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -10,7 +9,7 @@ public class AgendamentoRequestDTO {
     @NotNull(message = "O ID do paciente titular é obrigatório")
     private Integer idPacienteTitular;
 
-    // Este campo é opcional, a consulta pode ser para o próprio titular
+    // Opcional, pode ser nulo se a consulta for para o titular
     private Integer idPacienteAtendido;
 
     @NotNull(message = "O ID do médico é obrigatório")

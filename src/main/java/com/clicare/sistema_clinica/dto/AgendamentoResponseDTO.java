@@ -32,10 +32,10 @@ public class AgendamentoResponseDTO {
             dto.setDataHoraInicio(agendamento.getHorario().getDataHoraInicio());
         }
         if (agendamento.getMedico() != null && agendamento.getMedico().getUsuario() != null) {
-            dto.setNomeMedico(agendamento.getMedico().getUsuario().getName());
+            dto.setNomeMedico(agendamento.getMedico().getUsuario().getNome());
         }
         if (agendamento.getClinica() != null && agendamento.getClinica().getUsuario() != null) {
-            dto.setNomeClinica(agendamento.getClinica().getUsuario().getName());
+            dto.setNomeClinica(agendamento.getClinica().getUsuario().getNome());
         }
         if (agendamento.getEspecialidade() != null) {
             dto.setNomeEspecialidade(agendamento.getEspecialidade().getNome());
@@ -44,8 +44,8 @@ public class AgendamentoResponseDTO {
         // Lógica para definir o nome do paciente que será atendido
         if (agendamento.getPacienteAtendido() != null) {
             dto.setNomePacienteAtendido(agendamento.getPacienteAtendido().getNome());
-        } else if (agendamento.getPacienteTitular() != null && agendamento.getPacienteTitular().getUser() != null) {
-            dto.setNomePacienteAtendido(agendamento.getPacienteTitular().getUser().getName());
+        } else if (agendamento.getPacienteTitular() != null && agendamento.getPacienteTitular().getUsuario() != null) {
+            dto.setNomePacienteAtendido(agendamento.getPacienteTitular().getUsuario().getNome());
         }
 
         return dto;

@@ -1,8 +1,5 @@
 package com.clicare.sistema_clinica.model;
 
-import com.clicare.sistema_clinica.model.Endereco;
-import com.clicare.sistema_clinica.model.Medico;
-import com.clicare.sistema_clinica.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +21,7 @@ public class Clinica {
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "id_clinica")
-    private User usuario;
+    private Usuario usuario;
 
     @Column(name = "telefone_clinica", nullable = false)
     private String telefone;

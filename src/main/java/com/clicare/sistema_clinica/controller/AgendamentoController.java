@@ -2,7 +2,6 @@ package com.clicare.sistema_clinica.controller;
 
 import com.clicare.sistema_clinica.dto.AgendamentoRequestDTO;
 import com.clicare.sistema_clinica.dto.AgendamentoResponseDTO;
-import com.clicare.sistema_clinica.exception.RegraDeNegocioException;
 import com.clicare.sistema_clinica.model.*;
 import com.clicare.sistema_clinica.repository.*;
 import com.clicare.sistema_clinica.service.AgendamentoService;

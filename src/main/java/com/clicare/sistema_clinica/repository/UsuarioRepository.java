@@ -1,13 +1,13 @@
 package com.clicare.sistema_clinica.repository;
 
-import com.clicare.sistema_clinica.model.User;
+import com.clicare.sistema_clinica.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     /**
      * Busca um usuário pelo seu endereço de email.
@@ -17,5 +17,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @param email O email a ser pesquisado.
      * @return um Optional contendo o Usuário se encontrado, ou vazio caso contrário.
      */
-    Optional<User> findByEmail(String email);
+    Optional<Usuario> findByEmail(String email);
 }

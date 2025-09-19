@@ -3,9 +3,9 @@ package com.clicare.sistema_clinica.service;
 import com.clicare.sistema_clinica.dto.PacienteCadastroRequestDTO;
 import com.clicare.sistema_clinica.exception.RegraDeNegocioException;
 import com.clicare.sistema_clinica.model.Pacient;
-import com.clicare.sistema_clinica.model.User;
+import com.clicare.sistema_clinica.model.Usuario;
 import com.clicare.sistema_clinica.repository.PacientRepository;
-import com.clicare.sistema_clinica.repository.UserRepository;
+import com.clicare.sistema_clinica.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PacientService {
 
-    private final UserRepository userRepository;
+    private final UsuarioRepository usuarioRepository;
     private final PacientRepository pacientRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -26,7 +26,7 @@ public class PacientService {
     @Transactional // Garante que ou tudo é salvo com sucesso, ou nada é (rollback).
     public Pacient cadastrar(PacienteCadastroRequestDTO dto) {
         // --- VALIDAÇÃO DAS REGRAS DE NEGÓCIO ---
-        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
+        if (usuarioRepository.findByEmail(dto.getEmail()).isPresent()) {
             throw new RegraDeNegocioException("O email informado já está em uso.");
         }
         if (pacientRepository.existsByCpf(dto.getCpf())) {
@@ -34,17 +34,18 @@ public class PacientService {
         }
 
         // --- EXECUÇÃO DA LÓGICA ---
-        User novoUsuario = User.builder()
-                .name(dto.getNome())
+        Usuario novoUsuario = Usuario.builder()
+                .nome(dto.getNome())
                 .email(dto.getEmail())
                 .senhaHash(passwordEncoder.encode(dto.getSenha()))
-                .typeUser(User.TypeUser.PACIENTE)
+                .senha(dto.getSenha())
+                .typeUser(Usuario.TypeUser.PACIENTE)
                 .ativo(true)
                 .build();
-        User usuarioSalvo = userRepository.save(novoUsuario);
+        Usuario usuarioSalvo = usuarioRepository.save(novoUsuario);
 
         Pacient novoPaciente = Pacient.builder()
-                .user(usuarioSalvo)
+                .usuario(usuarioSalvo)
                 .cpf(dto.getCpf())
                 .dataNascimento(dto.getDataNascimento())
                 .build();

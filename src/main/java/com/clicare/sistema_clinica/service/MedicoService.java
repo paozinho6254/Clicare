@@ -3,9 +3,9 @@ package com.clicare.sistema_clinica.service;
 import com.clicare.sistema_clinica.dto.MedicoCadastroDTO;
 import com.clicare.sistema_clinica.exception.RegraDeNegocioException;
 import com.clicare.sistema_clinica.model.Medico;
-import com.clicare.sistema_clinica.model.User;
+import com.clicare.sistema_clinica.model.Usuario;
 import com.clicare.sistema_clinica.repository.MedicoRepository;
-import com.clicare.sistema_clinica.repository.UserRepository;
+import com.clicare.sistema_clinica.repository.UsuarioRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MedicoService {
 
-    private final UserRepository userRepository;
+    private final UsuarioRepository usuarioRepository;
     private final MedicoRepository medicoRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -25,21 +25,22 @@ public class MedicoService {
      */
     @Transactional
     public Medico cadastrar(@Valid MedicoCadastroDTO dto) {
-        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
+        if (usuarioRepository.findByEmail(dto.getEmail()).isPresent()) {
             throw new RegraDeNegocioException("O email informado já está em uso.");
         }
         if (medicoRepository.findByCrmAndCrmUf(dto.getCrm(), dto.getCrmUf()).isPresent()) {
             throw new RegraDeNegocioException("Este CRM já está cadastrado.");
         }
 
-        User novoUsuario = User.builder()
-                .name(dto.getNome())
+        Usuario novoUsuario = Usuario.builder()
+                .nome(dto.getNome())
                 .email(dto.getEmail())
                 .senhaHash(passwordEncoder.encode(dto.getSenha()))
-                .typeUser(User.TypeUser.MEDICO)
+                .senha(dto.getSenha())
+                .typeUser(Usuario.TypeUser.MEDICO)
                 .ativo(true)
                 .build();
-        User usuarioSalvo = userRepository.save(novoUsuario);
+        Usuario usuarioSalvo = usuarioRepository.save(novoUsuario);
 
         Medico novoMedico = Medico.builder()
                 .usuario(usuarioSalvo)

@@ -17,10 +17,16 @@ public class PacienteController {
 
     private final PacientService pacienteService;
 
+    @GetMapping("/status")
+    public String verificarStatus() {
+        return "API da Clínica no ar! Tudo funcionando.";
+    }
+
     @PostMapping("/cadastrar")
     public ResponseEntity<PacienteResponseDTO> cadastrar(@Valid @RequestBody PacienteCadastroRequestDTO dto) {
         Pacient pacienteSalvo = pacienteService.cadastrar(dto);
         // Converte a entidade salva para um DTO de resposta antes de enviar
         return ResponseEntity.status(HttpStatus.CREATED).body(PacienteResponseDTO.fromEntity(pacienteSalvo));
     }
+
 }

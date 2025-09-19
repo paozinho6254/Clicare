@@ -19,9 +19,9 @@ public class Medico {
     private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "id_medico")
-    private User usuario;
+    @MapsId // Diz que o ID desta entidade vem da relação abaixo
+    @JoinColumn(name = "id_medico") // Define o nome da coluna que faz a ligação
+    private Usuario usuario;
 
     @Column(name = "crm_medico", nullable = false)
     private String crm;
