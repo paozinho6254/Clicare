@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portal Hospitalar — Cadastro Paciente</title>
+    <style>
+        /* ===== SEUS ESTILOS ESTÃO PERFEITOS, MANTIDOS 100% ===== */
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #319F86 0%, #319F86 100%); margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .wrap { width: 100%; max-width: 420px; margin: 20px; }
+        .card { background: #fff; border-radius: 18px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18); padding: 32px 28px; }
+        .panel h2 { font-size: 1.6em; color: #319F86; margin-bottom: 6px; text-align: center; }
+        .panel p.small { color: #666; font-size: 0.95em; margin-bottom: 22px; text-align: center; }
+        .form-group { margin-bottom: 18px; display: flex; flex-direction: column; }
+        .form-group label { margin-bottom: 6px; font-weight: 500; color: #333; font-size: 0.95em; }
+        .form-group input { padding: 12px 14px; border-radius: 10px; border: 1px solid #ccc; font-size: 1em; transition: border-color 0.2s, box-shadow 0.2s; }
+        .form-group input:focus { outline: none; border-color: #319F86; box-shadow: 0 0 0 3px rgba(49, 159, 134, 0.25); }
+        .actions { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .btn { background-color: #319F86; color: #fff; border: none; border-radius: 10px; padding: 12px; font-size: 1em; font-weight: 600; cursor: pointer; transition: background-color 0.2s, transform 0.1s; width: 100%; }
+        .btn:hover { background-color: #267c68; transform: translateY(-2px); }
+        a { color: #319F86; text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+        .small { font-size: 0.9em; color: #555; }
+        .panel-footer { text-align: center; margin-top: 24px; font-size: 0.85em; color: #888; }
+        .panel-footer .help { margin-bottom: 6px; }
+        @media (max-width: 480px) { .card { padding: 24px 20px; } .panel h2 { font-size: 1.4em; } }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="card" role="main" aria-labelledby="page-title">
+        <aside class="panel" aria-label="Área de cadastro paciente">
+            <div>
+                <h2>Cadastrar no Portal</h2>
+                <p class="small">Insira suas informações para criar a conta.</p>
+            </div>
+
+            <form id="cadastro-paciente-form" aria-label="Formulário de cadastro de paciente">
+
+                <!-- CAMPOS ADICIONADOS PARA CORRESPONDER AO BACKEND -->
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input id="nome" type="text" placeholder="Seu nome completo" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input id="email" type="email" placeholder="seu.email@exemplo.com" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="cpf">CPF (apenas números)</label>
+                    <input id="cpf" type="text" placeholder="11122233344" required pattern="\d{11}" title="Digite os 11 dígitos do CPF, sem pontos ou traços."/>
+                </div>
+
+                <div class="form-group">
+                    <label for="dataNascimento">Data de Nascimento</label>
+                    <input id="dataNascimento" type="date" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">Senha (mínimo 6 caracteres)</label>
+                    <input id="senha" type="password" required minlength="6"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="senhaConfirm">Confirmar Senha</label>
+                    <input id="senhaConfirm" type="password" required />
+                </div>
+
+                <!-- Elemento para exibir mensagens de erro -->
+                <p id="error-message" style="color: red; text-align: center; display: none;"></p>
+
+                <div class="actions" style="margin-top:20px">
+                    <button class="btn" type="submit">Cadastrar</button>
+                </div>
+            </form>
+
+            <div class="panel-footer">
+                <div class="help">Já tem uma conta? <a href="login.html">Entrar</a></div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script>
+    const cadastroForm = document.getElementById('cadastro-paciente-form');
+    const errorMessage = document.getElementById('error-message');
+
+    cadastroForm.addEventListener('submit', async (event) => {
+        // Impede o recarregamento da página
+        event.preventDefault();
+
+        // Esconde mensagens de erro anteriores
+        errorMessage.style.display = 'none';
+
+        // 1. Pega os valores de todos os campos do formulário
+        const nome = document.getElementById('nome').value;
+        const email = document.getElementById('email').value;
+        const cpf = document.getElementById('cpf').value;
+        const dataNascimento = document.getElementById('dataNascimento').value;
+        const senha = document.getElementById('senha').value;
+        const senhaConfirm = document.getElementById('senhaConfirm').value;
+
+        // 2. Validação no frontend (verificar se as senhas coincidem)
+        if (senha !== senhaConfirm) {
+            errorMessage.textContent = 'As senhas não coincidem!';
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        // 3. Monta o objeto (DTO) que será enviado para o backend
+        const dadosCadastro = {
+            nome: nome,
+            email: email,
+            senha: senha,
+            cpf: cpf,
+            dataNascimento: dataNascimento
+        };
+
+        try {
+            // 4. Envia os dados para a API
+            const response = await fetch('/api/pacientes/cadastrar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dadosCadastro)
+            });
+
+            // 5. Trata a resposta do backend
+            if (!response.ok) {
+                // Se o backend retornou um erro (400, 500, etc.), mostra a mensagem
+                const errorData = await response.json();
+                errorMessage.textContent = errorData.message || 'Ocorreu um erro ao cadastrar. Verifique os dados.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Se o cadastro foi bem-sucedido (201 Created)
+            alert('Cadastro realizado com sucesso! Você será redirecionado para a tela de login.');
+            window.location.href = 'TelaLogin.html'; // Redireciona para o login
+
+        } catch (error) {
+            console.error('Erro de comunicação com a API:', error);
+            errorMessage.textContent = 'Não foi possível conectar ao servidor. Tente novamente mais tarde.';
+            errorMessage.style.display = 'block';
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+.user-header {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+}
+.user-info {
+    display: none;
+    align-items: center;
+    font-size: 1.1em;
+}
+.user-info i {
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+#btn-entrar {
+    display: block;
+    background-color: #ffffff;
+    color: #319F86;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+#btn-entrar:hover {
+    background-color: #f0f0f0;
+}
+
+.logo-img {
+    height: 80px;
+    vertical-align: middle;
+    margin-right: 10px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.445);
+    border-radius: 50%;
+}

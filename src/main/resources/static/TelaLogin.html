@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portal Hospitalar — Login</title>
+    <style>
+        /* --- SEUS ESTILOS ESTÃO PERFEITOS, MANTIDOS 100% --- */
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #319F86 0%, #319F86 100%); margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .wrap { width: 100%; max-width: 420px; margin: 20px; }
+        .card { background: #fff; border-radius: 18px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18); padding: 32px 28px; }
+        .panel h2 { font-size: 1.6em; color: #319F86; margin-bottom: 6px; text-align: center; }
+        .panel p.small { color: #666; font-size: 0.95em; margin-bottom: 22px; text-align: center; }
+        .form-group { margin-bottom: 18px; display: flex; flex-direction: column; }
+        .form-group label { margin-bottom: 6px; font-weight: 500; color: #333; font-size: 0.95em; }
+        .form-group input { padding: 12px 14px; border-radius: 10px; border: 1px solid #ccc; font-size: 1em; transition: border-color 0.2s, box-shadow 0.2s; }
+        .form-group input:focus { outline: none; border-color: #319F86; box-shadow: 0 0 0 3px rgba(49, 159, 134, 0.25); }
+        .actions { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .btn { background-color: #319F86; color: #fff; border: none; border-radius: 10px; padding: 12px; font-size: 1em; font-weight: 600; cursor: pointer; transition: background-color 0.2s, transform 0.1s; width: 100%; }
+        .btn:hover { background-color: #267c68; transform: translateY(-2px); }
+        .btn.ghost { background-color: #fff; color: #319F86; border: 2px solid #319F86; }
+        .btn.ghost:hover { background-color: #f0f0f0; }
+        a { color: #319F86; text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+        .small { font-size: 0.9em; color: #555; }
+        .panel-footer { text-align: center; margin-top: 24px; font-size: 0.85em; color: #888; }
+        .panel-footer .help { margin-bottom: 6px; }
+        @media (max-width: 480px) { .card { padding: 24px 20px; } .panel h2 { font-size: 1.4em; } }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="card" role="main">
+        <aside class="panel">
+            <div>
+                <h2>Entrar no Portal</h2>
+                <p class="small">Insira suas credenciais para acessar o sistema.</p>
+            </div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input id="email" type="email" placeholder="seu.nome@exemplo.com" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input id="senha" type="password" placeholder="••••••••" required />
+                </div>
+
+                <!-- 1. ADICIONADO: Elemento para exibir mensagens de erro -->
+                <p id="error-message" style="color: red; text-align: center; display: none; margin-top: 15px;"></p>
+
+                <div class="actions">
+                    <button class="btn" type="submit">Entrar</button>
+                    <!-- 2. ALTERADO: O botão "Criar conta" agora tem um onclick para ser mais explícito -->
+                    <button class="btn ghost" type="button" onclick="window.location.href='TelaCadastro.html'">Criar conta</button>
+                </div>
+            </form>
+
+            <div class="panel-footer">
+                <div class="help">Precisa de ajuda? <a href="#">Contato</a></div>
+                <div class="small">Versão 1.0</div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- SCRIPT DE INTEGRAÇÃO COM O BACKEND (SEU SCRIPT ORIGINAL, 100% CORRETO) -->
+<script>
+    // Seleciona o formulário e o elemento de mensagem de erro
+    const loginForm = document.getElementById('login-form');
+    const errorMessage = document.getElementById('error-message');
+
+    // Adiciona o "ouvinte" de evento ao formulário
+    loginForm.addEventListener('submit', async (event) => {
+        // Impede o comportamento padrão do formulário (recarregar a página)
+        event.preventDefault();
+
+        // Pega os valores dos campos
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+
+        // Garante que a mensagem de erro esteja escondida antes de tentar o login
+        errorMessage.style.display = 'none';
+
+        try {
+            // Envia os dados para o endpoint de login da sua API
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, senha: senha })
+            });
+
+            // Se a resposta não for bem-sucedida (ex: 401 - Unauthorized)
+            if (!response.ok) {
+                let errorData;
+                try {
+                    errorData = await response.json(); // Tenta ler a mensagem de erro do backend
+                } catch (e) {
+                    errorData = { message: 'Credenciais inválidas. Verifique seu e-mail e senha.' };
+                }
+                // Mostra a mensagem de erro para o usuário
+                errorMessage.textContent = errorData.message;
+                errorMessage.style.display = 'block';
+                return; // Interrompe a execução
+            }
+
+            // Se a resposta foi bem-sucedida (200 OK)
+            const data = await response.json();
+
+            // Armazena o token recebido no localStorage do navegador
+            localStorage.setItem('jwtToken', data.token);
+
+            // Redireciona o usuário para a página principal
+            window.location.href = 'index.html';
+
+        } catch (error) {
+            // Se houver um erro de rede (ex: backend fora do ar)
+            console.error('Erro ao tentar fazer login:', error);
+            errorMessage.textContent = 'Não foi possível conectar ao servidor. Tente novamente mais tarde.';
+            errorMessage.style.display = 'block';
+        }
+    });
+</script>
+</body>
+</html>

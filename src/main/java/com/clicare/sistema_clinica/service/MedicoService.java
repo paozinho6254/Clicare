@@ -8,12 +8,13 @@ import com.clicare.sistema_clinica.repository.MedicoRepository;
 import com.clicare.sistema_clinica.repository.UsuarioRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class MedicoService {
 
     private final UsuarioRepository usuarioRepository;
@@ -23,6 +24,15 @@ public class MedicoService {
     /**
      * Cadastra um novo médico no sistema.
      */
+
+    public MedicoService(MedicoRepository medicoRepository,
+                         UsuarioRepository usuarioRepository,
+                         @Lazy PasswordEncoder passwordEncoder) { // <-- Tente anotar o parâmetro aqui
+        this.medicoRepository = medicoRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Transactional
     public Medico cadastrar(@Valid MedicoCadastroDTO dto) {
         if (usuarioRepository.findByEmail(dto.getEmail()).isPresent()) {

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CliCare — Perfil (Monitor)</title>
+  <style>
+    :root{
+      --green:#0fb08f;
+      --dark:#0b6154;
+      --muted:#7b8b86;
+      --card:#ffffff;
+      --bg:#f2f6f5;
+      --shadow:0 8px 22px rgba(6,12,12,0.15);
+      --radius:18px;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    body{
+      margin:0;
+      background:linear-gradient(135deg, #e9fdf9, #f6fdfc);
+      color:#0b2b28;
+      font-size:18px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Tema escuro */
+    body.dark {
+      background:#1e1e1e;
+      color:#f5f5f5;
+    }
+    body.dark header,
+    body.dark .card,
+    body.dark footer {
+      background:#2c2c2c;
+      color:#f5f5f5;
+    }
+    body.dark .extra-card,
+    body.dark .profile-card {
+      background:#2c2c2c;
+      color:#f5f5f5;
+    }
+
+    header{
+      background:var(--card);
+      box-shadow:var(--shadow);
+      padding:18px 40px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+
+    header .logo{
+      font-size:1.8rem;
+      font-weight:bold;
+      color:var(--green);
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    header nav a{
+      margin-left:20px;
+      text-decoration:none;
+      color:var(--dark);
+      font-weight:500;
+      transition:0.2s;
+      cursor:pointer;
+    }
+    header nav a:hover{
+      color:var(--green);
+    }
+
+    .main{
+      max-width:1100px;
+      margin:40px auto;
+      padding:0 20px;
+      display:flex;
+      flex-direction:column;
+      gap:40px;
+    }
+
+    .profile-card{
+      background:var(--card);
+      padding:30px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:200px 1fr;
+      gap:30px;
+      align-items:center;
+      font-size:20px;
+    }
+
+    .profile-card img{
+      width:200px;
+      height:200px;
+      border-radius:50%;
+      object-fit:cover;
+      border:5px solid var(--green);
+    }
+
+    .profile-info h2{
+      margin:0;
+      font-size:2.2rem;
+      color:var(--dark);
+    }
+    .profile-info p{
+      margin:6px 0;
+      color:var(--muted);
+      font-size:1.2rem;
+    }
+
+    .info-list{
+      margin-top:12px;
+      display:grid;
+      gap:10px;
+    }
+    .info-list div{
+      font-size:1.1rem;
+    }
+    .info-list strong{
+      color:var(--dark);
+    }
+
+    /* Quick Actions */
+    .actions{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:24px;
+    }
+    .card{
+      background:var(--green);
+      padding:30px 20px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      text-align:center;
+      cursor:pointer;
+      transition:0.2s;
+      font-size:1.2rem;
+      color:white;
+      font-weight:bold;
+    }
+    .card:hover{
+      background:#0a7a65;
+      transform:translateY(-4px);
+    }
+
+    /* Extra Sections */
+    .extra{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+    }
+    .extra-card{
+      background:var(--card);
+      padding:24px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .extra-card h3{
+      margin-top:0;
+      color:var(--dark);
+    }
+
+    /* Footer */
+    footer{
+      margin-top:40px;
+      text-align:center;
+      padding:25px;
+      font-size:1rem;
+      background:var(--card);
+      color:var(--muted);
+      box-shadow:var(--shadow);
+    }
+    footer a{
+      color:var(--green);
+      text-decoration:none;
+      margin:0 10px;
+      font-weight:500;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">CliCare</div>
+    <nav>
+      <a href="HistoricoConsulta.html" id="nav-consultas">Consultas</a>
+      <a href="Historico.html" id="nav-historico">Histórico</a>
+      <a href="preferencias.html" id="nav-preferencias">Preferências</a>
+      <a href="pagamento.html" id="nav-pagamento">Pagamentos</a>
+      <a href="TelaLogin.html" id="nav-sair">Sair</a>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main class="main">
+    <!-- Profile -->
+    <section class="profile-card">
+      <img src="..\images\diego.webp" alt="Foto do usuário">
+      <div class="profile-info">
+        <h2 id="profile-name">Diego</h2>
+        <p id="profile-location">Brasil, Bangkok</p>
+        <div class="info-list">
+          <div><strong id="label-name">Nome:</strong> Mano Digas de Aguiar</div>
+          <div><strong id="label-email">Email:</strong> Diego@yahoo.com</div>
+          <div><strong id="label-phone">Telefone:</strong> +66 99999-9999</div>
+          <div><strong id="label-password">Senha:</strong> ************</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Preferências -->
+    <section class="extra-card">
+      <h3 id="preferences-title">Minhas Preferências</h3>
+      <p><strong id="label-theme">Tema:</strong> <span id="pref-theme"></span></p>
+      <p><strong id="label-lang">Idioma:</strong> <span id="pref-lang"></span></p>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="actions">
+      <div class="card" onclick="location.href='HistoricoConsulta.html'" id="btn-consultas">Consultas</div>
+      <div class="card" onclick="location.href='Historico.html'" id="btn-historico">Histórico</div>
+      <div class="card" onclick="location.href='preferencias.html'" id="btn-preferencias">Preferências</div>
+      <div class="card" onclick="location.href='pagamento.html'" id="btn-pagamento">Pagamentos</div>
+    </section>
+
+    <!-- Extra Sections -->
+    <section class="extra">
+      <div class="extra-card">
+        <h3 id="upcoming-title">Próximos Compromissos</h3>
+        <ul>
+          <li>15/09/2025 - Consulta Online</li>
+          <li>20/09/2025 - Retorno Clínico</li>
+        </ul>
+      </div>
+
+      <div class="extra-card">
+        <h3 id="notifications-title">Notificações</h3>
+        <ul>
+          <li>Nova atualização disponível no app</li>
+          <li>Confirme sua próxima consulta</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <a href="#" id="footer-help">Ajuda</a> |
+      <a href="#" id="footer-privacy">Políticas de Privacidade</a> |
+      <span id="footer-brand">CliCare 2025</span>
+    </footer>
+  </main>
+
+  <script>
+    // Traduções
+    const translations = {
+      "pt-BR": {
+        preferencesTitle:"Minhas Preferências",
+        labelTheme:"Tema:", labelLang:"Idioma:",
+        themeLight:"Claro", themeDark:"Escuro",
+        langPt:"Português", langEn:"Inglês", langEs:"Espanhol"
+      },
+      "en-US": {
+        preferencesTitle:"My Preferences",
+        labelTheme:"Theme:", labelLang:"Language:",
+        themeLight:"Light", themeDark:"Dark",
+        langPt:"Portuguese", langEn:"English", langEs:"Spanish"
+      },
+      "es-ES": {
+        preferencesTitle:"Mis Preferencias",
+        labelTheme:"Tema:", labelLang:"Idioma:",
+        themeLight:"Claro", themeDark:"Oscuro",
+        langPt:"Portugués", langEn:"Inglés", langEs:"Español"
+      }
+    };
+
+    function applyPreferences() {
+      const lang = localStorage.getItem("idioma") || "pt-BR";
+      const theme = localStorage.getItem("tema") || "claro";
+      const t = translations[lang];
+
+      // Aplica traduções
+      document.getElementById("preferences-title").textContent = t.preferencesTitle;
+      document.getElementById("label-theme").textContent = t.labelTheme;
+      document.getElementById("label-lang").textContent = t.labelLang;
+
+      // Exibe tema salvo
+      document.getElementById("pref-theme").textContent = theme === "escuro" ? t.themeDark : t.themeLight;
+
+      // Exibe idioma salvo
+      let idiomaExibido = t.langPt;
+      if(lang === "en-US") idiomaExibido = t.langEn;
+      if(lang === "es-ES") idiomaExibido = t.langEs;
+      document.getElementById("pref-lang").textContent = idiomaExibido;
+
+      // Aplica tema
+      document.body.classList.toggle("dark", theme === "escuro");
+    }
+
+    applyPreferences();
+  </script>
+</body>
+</html>

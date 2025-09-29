@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portal Hospitalar — Cadastro</title>
+    <style>
+        /* ===== BASE ===== */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #319F86 0%, #319F86 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* ===== WRAPPER / CARD ===== */
+        .wrap {
+            width: 100%;
+            max-width: 420px;
+            margin: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+            padding: 32px 28px;
+        }
+
+        /* ===== PAINEL ===== */
+        .panel h2 {
+            font-size: 1.6em;
+            color: #319F86;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .panel p.small {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 22px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        .form-group input {
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #319F86;
+            box-shadow: 0 0 0 3px rgba(49, 159, 134, 0.25);
+        }
+
+        /* ===== BOTÕES ===== */
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: #319F86;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #267c68;
+            transform: translateY(-2px);
+        }
+
+        .btn.ghost {
+            background-color: #fff;
+            color: #319F86;
+            border: 2px solid #319F86;
+        }
+
+        .btn.ghost:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* ===== LINKS E PEQUENOS TEXTOS ===== */
+        a {
+            color: #319F86;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .small {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* ===== FOOTER ===== */
+        .panel-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.85em;
+            color: #888;
+        }
+
+        .panel-footer .help {
+            margin-bottom: 6px;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px 20px;
+            }
+            .panel h2 {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="card" role="main" aria-labelledby="page-title">
+        <aside class="panel" aria-label="Área de cadastro">
+            <div>
+                <h2>Cadastrar no Portal</h2>
+                <p class="small">Quem você é?</p>
+            </div>
+
+            <div class="actions" style="margin-top:20px">
+                <a href="TelaCadastroClinica.html">
+                    <button class="btn" type="button">Clínica</button>
+                </a>
+                <a href="TelaCadastroPaciente.html">
+                    <button class="btn ghost" type="button">Paciente</button>
+                </a>
+            </div>
+
+            <div class="panel-footer">
+                <div class="help">Precisa de ajuda? <a href="#">Contato</a></div>
+                <div class="small">Versão 1.0</div>
+            </div>
+        </aside>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CliCare — Agenda (Desktop)</title>
+  <style>
+    :root{
+      --green:#0fb08f;
+      --dark:#0b6154;
+      --muted:#7b8b86;
+      --card:#ffffff;
+      --bg:#f5f8f7;
+      --pill-bg:#eef6f4;
+      --radius:12px;
+      --radius-square:6px;
+      --shadow: 0 6px 18px rgba(11,97,84,0.08);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0;background:var(--bg);color:#0a2240}
+    .app{
+      max-width:1200px;
+      margin:28px auto;
+      display:grid;
+      grid-template-columns: 300px 1fr 300px;
+      gap:20px;
+      align-items:start;
+      padding:18px;
+    }
+    /* Left column: menu/profile */
+    .side{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      min-height:100%;
+    }
+    .logo{
+      display:flex;align-items:center;gap:12px;margin-bottom:14px
+    }
+    .logo .mark{
+      width:48px;height:48px;border-radius:10px;background:linear-gradient(180deg,var(--green),var(--dark));display:flex;align-items:center;justify-content:center;color:white;font-weight:700
+    }
+    .search{
+      margin:10px 0 18px;display:flex
+    }
+    .search input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e6efec;background:var(--pill-bg)}
+    .profile-card{display:flex;gap:12px;align-items:center;padding:12px;border-radius:10px;border:1px solid #eef6f4}
+    .avatar{width:56px;height:56px;border-radius:10px;background:linear-gradient(180deg,#fff,#f0f6f4);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--dark)}
+    .meta{flex:1}
+    .meta h3{margin:0;font-size:16px;color:var(--dark)}
+    .meta p{margin:6px 0 0;color:var(--muted);font-size:13px}
+    .rating{margin-top:8px;font-size:13px;color:#f39c12}
+
+    /* Center: main schedule */
+    .main{
+      background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+    }
+    .main h2{margin:0 0 12px;font-size:20px;color:var(--dark)}
+    .grid{
+      display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;border-top:1px solid #eef6f4;padding-top:12px
+    }
+    .date-col{display:flex;flex-direction:column;gap:12px}
+    .date-item{background:#fff;border-radius:var(--radius-square);padding:12px;text-align:center;border:1px solid #f1f6f4}
+    .date-item .day{font-weight:700;color:var(--dark)}
+    .slots{display:flex;flex-direction:column;gap:20px;justify-content:center}
+    .slot-row{display:flex;gap:10px;flex-wrap:wrap}
+    .slot{padding:8px 16px;border-radius:999px;background:var(--pill-bg);border:1px solid #e6efec;font-weight:600;text-align:center;min-width:70px}
+
+    /* Right column: details / actions */
+    .panel{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;min-height:100%;display:flex;flex-direction:column;justify-content:flex-start}
+    .panel h3{margin-top:0}
+    .availability{display:flex;gap:10px;flex-wrap:wrap}
+    .fav{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(180deg,#fff,#f7fffb);padding:8px 10px;border-radius:10px;border:1px solid #eef6f4}
+    .book-btn{display:inline-block;margin-top:16px;padding:12px 16px;background:var(--green);color:white;border-radius:10px;text-decoration:none;font-weight:700;text-align:center}
+
+    /* footer-like nav for desktop - compact */
+    .footer-nav{
+      grid-column:1/-1;
+      margin-top:40px; /* aumento de espaço */
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center
+    }
+    .chip{padding:8px 10px;border-radius:10px;background:#fff;border:1px solid #eef6f4;text-align:center}
+
+    /* responsive */
+    @media (max-width:1000px){
+      .app{grid-template-columns:1fr;max-width:760px}
+      .footer-nav{grid-column:1}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="side">
+      <div class="logo">
+        <div class="mark">CLI</div>
+        <div>
+          <div style="font-weight:700;color:var(--dark)">CliCare</div>
+          <small style="color:var(--muted)">Agendamento de consultas</small>
+        </div>
+      </div>
+
+      <div class="search">
+        <input placeholder="Pesquisar profissionais, especialidades ou clínicas" />
+      </div>
+
+      <div class="profile-card">
+        <div class="avatar">DA</div>
+        <div class="meta">
+          <h3>Dr. Ana</h3>
+          <p>Especialista de Pele • Hospital</p>
+          <div class="rating">★★★★☆ <strong style="color:#222;">4.9</strong></div>
+        </div>
+        <div class="fav">❤</div>
+      </div>
+
+      <div style="margin-top:18px;font-size:13px;color:var(--muted)">
+        <strong>Contato</strong>
+        <p style="margin:6px 0 0">Hospital Central • (00) 0000-0000</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <h2>Agenda — Horários Disponíveis</h2>
+
+      <div style="display:flex;gap:14px;align-items:center;margin-bottom:12px">
+        <div class="chip">Especialidade: Dermatologia</div>
+        <div class="chip">Local: Hospital Central</div>
+        <div class="chip">Avaliação: 4.9</div>
+      </div>
+
+      <div class="grid">
+        <div class="date-col">
+          <div class="date-item"><div class="day">12/09</div><small class="muted">Sábado</small></div>
+          <div class="date-item"><div class="day">13/09</div><small class="muted">Domingo</small></div>
+          <div class="date-item"><div class="day">14/10</div><small class="muted">Terça</small></div>
+          <div class="date-item"><div class="day">16/10</div><small class="muted">Quinta</small></div>
+          <div class="date-item"><div class="day">17/10</div><small class="muted">Sexta</small></div>
+        </div>
+
+        <div>
+          <div class="slots">
+            <div class="slot-row">
+              <div class="slot">15:30</div>
+              <div class="slot">16:00</div>
+              <div class="slot">16:30</div>
+            </div>
+            <div class="slot-row">
+              <div class="slot">15:30</div>
+              <div class="slot">16:00</div>
+              <div class="slot">16:30</div>
+            </div>
+            <div class="slot-row">
+              <div class="slot">15:30</div>
+              <div class="slot">16:00</div>
+              <div class="slot">16:30</div>
+            </div>
+            <div class="slot-row">
+              <div class="slot">15:30</div>
+              <div class="slot">16:00</div>
+              <div class="slot">16:30</div>
+            </div>
+            <div class="slot-row">
+              <div class="slot">15:30</div>
+              <div class="slot">16:00</div>
+              <div class="slot">16:30</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <aside class="panel">
+      <h3>Detalhes da Consulta</h3>
+      <p style="color:var(--muted)">Selecione um horário à esquerda para ver mais informações e confirmar o agendamento.</p>
+
+      <div style="margin-top:12px">
+        <div class="fav">Especialidade: Dermatologia</div>
+        <div style="height:12px"></div>
+        <div class="fav">Local: Hospital Central</div>
+      </div>
+
+      <div style="margin-top:16px">
+        <strong>Tempo estimado</strong>
+        <p style="margin:6px 0 0;color:var(--muted)">30 minutos</p>
+      </div>
+
+      <div style="margin-top:12px">
+        <strong>Preço (consulta)</strong>
+        <p style="margin:6px 0 0;color:var(--muted)">R$ 150,00</p>
+      </div>
+
+      <a class="book-btn" href="#">Agendar consulta</a>
+
+      <div style="margin-top:22px;border-top:1px solid #eef6f4;padding-top:12px;color:var(--muted)">
+        <small>Atalhos</small>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+          <div class="chip">Home</div>
+          <div class="chip">Assistente AI</div>
+          <div class="chip">Clínica</div>
+          <div class="chip">Perfil</div>
+        </div>
+      </div>
+
+    </aside>
+
+    <div class="footer-nav">
+      <div class="chip">© CliCare 2025</div>
+      <div style="display:flex;gap:8px">
+        <div class="chip">Política de Privacidade</div>
+        <div class="chip">Ajuda</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

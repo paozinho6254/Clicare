@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Saúde CLICARE</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #319F86 0%, #319F86 100%);
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .header {
+            background: transparent;
+            color: #ffffff;
+            padding: 40px 20px 10px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .header .logo-img {
+            height: 80px;
+            vertical-align: middle;
+            margin-right: 15px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.445);
+            border-radius: 50%;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+            padding: 40px 32px;
+        }
+        .menu-title {
+            font-size: 1.7em;
+            margin-bottom: 32px;
+            text-align: center;
+            color: #319F86;
+            font-weight: 600;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 28px;
+        }
+        .menu-card {
+            background: #f4f6fb;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            padding: 28px 16px;
+            text-align: center;
+            transition: transform 0.18s, box-shadow 0.18s;
+            cursor: pointer;
+        }
+        .menu-card:hover {
+            transform: translateY(-6px) scale(1.04);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.13);
+            background: #e3f2fd;
+        }
+        .menu-card i {
+            font-size: 2.2em;
+            color: #319F86;
+            margin-bottom: 14px;
+        }
+        .menu-card span {
+            display: block;
+            font-size: 1.08em;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .user-header {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            z-index: 10;
+        }
+        .user-info {
+            display: none;
+            align-items: center;
+            font-size: 1.1em;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        .user-info i {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        #btn-entrar {
+            display: block;
+            background-color: #ffffff;
+            color: #319F86;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        #btn-entrar:hover {
+            background-color: #f0f0f0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-bottom: 20px;
+            color: #fff;
+            font-size: 1em;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px 10px;
+                padding: 24px 16px;
+            }
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Esta área no topo direito mudará se o usuário estiver logado ou não -->
+<div class="user-header">
+    <a href="TelaLogin.html" id="btn-entrar">Entrar</a>
+    <div id="user-info" class="user-info">
+        <i class="fa-solid fa-user-circle"></i>
+        <span id="user-name"></span>
+    </div>
+</div>
+
+<div class="header">
+    <h1>
+        <!-- Caminho corrigido para funcionar na pasta 'static' -->
+        <img src="images/logoClicare.png" alt="Logo" class="logo-img">
+        <span>Portal Saúde CLICARE</span>
+    </h1>
+    <h1>Bem-vindo ao seu sistema de saúde</h1>
+</div>
+
+<div class="container">
+    <div class="menu-title">O que você deseja fazer?</div>
+    <div class="menu-grid">
+        <!-- IDs foram adicionados para o JavaScript poder controlá-los -->
+        <div id="btn-marcar-consulta" class="menu-card">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Marcar Consulta</span>
+        </div>
+        <div id="btn-agendar-exame" class="menu-card">
+            <i class="fa-solid fa-vial"></i>
+            <span>Agendar Exame</span>
+        </div>
+        <div id="btn-historico" class="menu-card">
+            <i class="fa-solid fa-notes-medical"></i>
+            <span>Ver Histórico Médico</span>
+        </div>
+        <div id="btn-receitas" class="menu-card">
+            <i class="fa-solid fa-prescription-bottle-medical"></i>
+            <span>Receitas e Prescrições</span>
+        </div>
+        <div id="btn-telemedicina" class="menu-card">
+            <i class="fa-solid fa-video"></i>
+            <span>Telemedicina</span>
+        </div>
+        <div id="btn-meus-dados" class="menu-card">
+            <i class="fa-solid fa-user"></i>
+            <span>Meus Dados</span>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    &copy; 2025 Portal Saúde CLICARE. Todos os direitos reservados.
+</div>
+
+
+<script>
+    // Função principal que executa assim que a página é carregada
+    document.addEventListener('DOMContentLoaded', () => {
+        verificarStatusLogin();
+        configurarBotoesMenu();
+    });
+
+    // Função para verificar se o usuário está logado
+    async function verificarStatusLogin() {
+        const token = localStorage.getItem('jwtToken');
+
+        // Se não há token, não faz nada. A página fica no estado "não logado".
+        if (!token) {
+            console.log('Nenhum token encontrado. Usuário não está logado.');
+            return;
+        }
+
+        try {
+            // Se existe um token, enviamos para o backend para validação.
+            // **LEMBRE-SE: Você precisa criar este endpoint no seu backend!**
+            const response = await fetch('/api/auth/me', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            // Se o token for inválido ou expirado, o backend retornará um erro.
+            if (!response.ok) {
+                localStorage.removeItem('jwtToken'); // Limpa o token inválido
+                console.error('Sessão inválida ou expirada. Faça o login novamente.');
+                return;
+            }
+
+            // Se o token for válido, o backend retorna os dados do usuário.
+            const usuario = await response.json();
+            atualizarInterfaceParaUsuarioLogado(usuario);
+
+        } catch (error) {
+            console.error('Erro de rede ao verificar o login:', error);
+        }
+    }
+
+    // Função para alterar a interface para o estado "logado"
+    function atualizarInterfaceParaUsuarioLogado(usuario) {
+        const btnEntrar = document.getElementById('btn-entrar');
+        const userInfoDiv = document.getElementById('user-info');
+        const userNameSpan = document.getElementById('user-name');
+
+        if (btnEntrar) btnEntrar.style.display = 'none'; // Esconde o botão "Entrar"
+
+        // Mostra a div de informações do usuário e preenche com o nome
+        if (userInfoDiv && userNameSpan) {
+            userNameSpan.textContent = usuario.nomeExibicao; // O backend deve retornar um campo 'nomeExibicao'
+            userInfoDiv.style.display = 'flex';
+        }
+    }
+
+    // Função para adicionar a lógica de clique condicional aos botões do menu
+    function configurarBotoesMenu() {
+        const rotas = {
+            'btn-marcar-consulta': 'telaAgendamento.html',
+            'btn-agendar-exame': 'telaExames.html',
+            'btn-historico': 'telaHistorico.html',
+            'btn-receitas': 'Receitas.html',
+            'btn-telemedicina': 'telemedicina.html',
+            'btn-meus-dados': 'TelaPerfil.html'
+        };
+
+        for (const idBotao in rotas) {
+            const botao = document.getElementById(idBotao);
+            if (botao) {
+                botao.addEventListener('click', () => {
+                    const token = localStorage.getItem('jwtToken');
+
+                    if (token) {
+                        // Se o usuário ESTÁ logado, vai para a página desejada.
+                        window.location.href = rotas[idBotao];
+                    } else {
+                        window.location.href = 'TelaLogin.html';
+                    }
+                });
+            }
+        }
+    }
+</script>
+<!-- FIM DO CÓDIGO JAVASCRIPT -->
+
+</body>
+</html>
