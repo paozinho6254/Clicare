@@ -14,7 +14,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private Long id;
+    private Integer id;
 
     @Column(name = "nome_usuario")
     private String nome;
@@ -29,13 +29,13 @@ public class Usuario {
     private String senha;
 
     @Column(name = "tipo_usuario")
-    private TypeUser typeUser;
+    private TipoUsuario tipoUsuario;
 
     @Column(name = "ativo")
     private Boolean ativo;
 
     // Para Enuns colocar nas classes base
-    public enum TypeUser {
+    public enum TipoUsuario {
         PACIENTE, MEDICO, CLINICA, ADMIN
     }
 

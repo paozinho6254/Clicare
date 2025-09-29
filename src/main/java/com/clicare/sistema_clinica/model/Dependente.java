@@ -26,5 +26,5 @@ public class Dependente {
     // Vários dependentes pertencem a um paciente titular
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_paciente", nullable = false)
-    private Pacient pacienteTitular;
+    private Paciente pacienteTitular;
 }

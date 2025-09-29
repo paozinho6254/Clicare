@@ -15,7 +15,7 @@ public class AgendamentoService {
 
     private final AgendamentoRepository agendamentoRepository;
     private final AgendaMedicoRepository agendaMedicoRepository;
-    private final PacientRepository pacienteRepository;
+    private final PacienteRepository pacienteRepository;
     private final MedicoRepository medicoRepository;
     private final ClinicaRepository clinicaRepository;
     private final EspecialidadeRepository especialidadeRepository;
@@ -31,7 +31,7 @@ public class AgendamentoService {
     @Transactional
     public Agendamento criar(AgendamentoRequestDTO dto) {
         // --- 1. BUSCA E VALIDAÇÃO DAS ENTIDADES NECESSÁRIAS ---
-        Pacient pacienteTitular = pacienteRepository.findById(dto.getIdPacienteTitular())
+        Paciente pacienteTitular = pacienteRepository.findById(dto.getIdPacienteTitular())
                 .orElseThrow(() -> new EntityNotFoundException("Paciente com ID " + dto.getIdPacienteTitular() + " não encontrado."));
 
         Medico medico = medicoRepository.findById(dto.getIdMedico())

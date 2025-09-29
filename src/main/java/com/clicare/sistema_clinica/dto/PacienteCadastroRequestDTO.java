@@ -2,7 +2,8 @@ package com.clicare.sistema_clinica.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 @Data // Gera Getters, Setters, etc.
 public class PacienteCadastroRequestDTO {
@@ -25,5 +26,5 @@ public class PacienteCadastroRequestDTO {
 
     @NotNull(message = "A data de nascimento é obrigatória")
     @Past(message = "A data de nascimento deve ser uma data no passado")
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 }

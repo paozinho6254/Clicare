@@ -1,13 +1,13 @@
 package com.clicare.sistema_clinica.repository;
 
-import com.clicare.sistema_clinica.model.Pacient;
+import com.clicare.sistema_clinica.model.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface PacientRepository extends JpaRepository<Pacient, Integer> {
+public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
 
     /**
      * Verifica de forma otimizada se já existe um paciente com o CPF informado.
@@ -25,5 +25,5 @@ public interface PacientRepository extends JpaRepository<Pacient, Integer> {
      * @param cpf O CPF do paciente a ser buscado.
      * @return um Optional contendo o Paciente se encontrado.
      */
-    Optional<Pacient> findByCpf(String cpf);
+    Optional<Paciente> findByCpf(String cpf);
 }

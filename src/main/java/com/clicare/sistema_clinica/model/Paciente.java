@@ -3,7 +3,7 @@ package com.clicare.sistema_clinica.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 
@@ -14,11 +14,11 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "paciente")
-public class Pacient {
+public class Paciente {
 
     @Id
     @Column(name = "id_paciente")
-    private Long id;
+    private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId // Diz que o ID desta entidade vem da relação abaixo
@@ -33,7 +33,7 @@ public class Pacient {
     private String telefone;
 
     @Column(name = "data_nascimento_paciente")
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
 
     @Column(name = "sexo_paciente")
     private String sexo;

@@ -13,6 +13,22 @@
             position: relative;
         }
 
+        .btn-sair {
+            color: #ffffff;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-decoration: none;
+            margin-left: 15px; /* Espaçamento */
+            padding: 5px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .btn-sair:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #319F86;
+        }
+
         .header {
             background: transparent;
             color: #ffffff;
@@ -147,6 +163,7 @@
     <div id="user-info" class="user-info">
         <i class="fa-solid fa-user-circle"></i>
         <span id="user-name"></span>
+        <a href="#" id="btn-sair" class="btn-sair">Sair</a>
     </div>
 </div>
 
@@ -200,21 +217,17 @@
     document.addEventListener('DOMContentLoaded', () => {
         verificarStatusLogin();
         configurarBotoesMenu();
+        configurarBotaoSair();
     });
 
     // Função para verificar se o usuário está logado
     async function verificarStatusLogin() {
         const token = localStorage.getItem('jwtToken');
-
-        // Se não há token, não faz nada. A página fica no estado "não logado".
         if (!token) {
-            console.log('Nenhum token encontrado. Usuário não está logado.');
-            return;
+            return; // Se não tem token, para aqui.
         }
 
         try {
-            // Se existe um token, enviamos para o backend para validação.
-            // **LEMBRE-SE: Você precisa criar este endpoint no seu backend!**
             const response = await fetch('/api/auth/me', {
                 method: 'GET',
                 headers: {
@@ -222,18 +235,21 @@
                 }
             });
 
-            // Se o token for inválido ou expirado, o backend retornará um erro.
+            // ESTE É O BLOCO SUSPEITO
             if (!response.ok) {
-                localStorage.removeItem('jwtToken'); // Limpa o token inválido
+                // Se a resposta do backend NÃO for OK (ex: 401, 403, 404),
+                // o código entra aqui.
+                localStorage.removeItem('jwtToken'); // <-- AQUI ESTÁ A "ARMA DO CRIME"!
                 console.error('Sessão inválida ou expirada. Faça o login novamente.');
                 return;
             }
 
-            // Se o token for válido, o backend retorna os dados do usuário.
             const usuario = await response.json();
             atualizarInterfaceParaUsuarioLogado(usuario);
 
         } catch (error) {
+            // QUALQUER erro de rede também pode levar à remoção
+            localStorage.removeItem('jwtToken'); // <-- OUTRO PONTO DE REMOÇÃO!
             console.error('Erro de rede ao verificar o login:', error);
         }
     }
@@ -280,6 +296,26 @@
             }
         }
     }
+
+    function configurarBotaoSair() {
+        const btnSair = document.getElementById('btn-sair');
+        if (btnSair) {
+            btnSair.addEventListener('click', (event) => {
+                // event.preventDefault() impede que o link '#' recarregue a página
+                event.preventDefault();
+
+                // 1. Remove o token do localStorage. Esta é a ação de logout.
+                localStorage.removeItem('jwtToken');
+
+                // 2. Avisa o usuário que ele foi deslogado.
+                alert('Voc  ê foi desconectado com sucesso.');
+
+                // 3. Recarrega a página para que ela volte ao estado "não logado".
+                window.location.reload();
+            });
+        }
+    }
+
 </script>
 <!-- FIM DO CÓDIGO JAVASCRIPT -->
 

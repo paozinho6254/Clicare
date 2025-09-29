@@ -47,7 +47,7 @@ public class MedicoService {
                 .email(dto.getEmail())
                 .senhaHash(passwordEncoder.encode(dto.getSenha()))
                 .senha(dto.getSenha())
-                .typeUser(Usuario.TypeUser.MEDICO)
+                .tipoUsuario(Usuario.TipoUsuario.MEDICO)
                 .ativo(true)
                 .build();
         Usuario usuarioSalvo = usuarioRepository.save(novoUsuario);

@@ -3,7 +3,6 @@ package com.clicare.sistema_clinica.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
-import com.clicare.sistema_clinica.model.Clinica;
 
 @Data
 @Builder
@@ -25,7 +24,7 @@ public class Agendamento {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_paciente", nullable = false)
-    private Pacient pacienteTitular; // Quem marcou
+    private Paciente pacienteTitular; // Quem marcou
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_dependente")
